@@ -5,7 +5,7 @@ function isPalindrome(word) {
   if (word[0] == word[word.length -1]) return isPalindrome(word.slice(1,-1))
   return false
 }
- 
+
 console.log( isPalindrome("") === true );
 console.log( isPalindrome("a") === true );
 console.log( isPalindrome("aa") === true );
