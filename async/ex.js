@@ -7,9 +7,9 @@ var timer = rxjs.interval(1000).pipe(
 );
 var countdown =
 	rxjs.merge(rxjs.of(-1),timer)
-	//.pipe(
-		// rxjs.operators. --whatever--
-	//);
+	.pipe(
+		rxjs.operators.map(formatCountdown)
+	);
 
 countdown.subscribe(
 	console.log.bind(console),
@@ -21,7 +21,7 @@ countdown.subscribe(
 // *************************************
 
 function formatCountdown(counter) {
-	// TODO
+	return formatTime(countdownLength - counter -1)
 }
 
 function formatTime(time) {

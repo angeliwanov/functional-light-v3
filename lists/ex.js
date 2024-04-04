@@ -52,3 +52,15 @@ function addnReduce(fns) {
 }
 
 console.log(addnReduce([constant(5), constant(10), constant(15)]))
+
+const numbers =[12,2,4,3,6,8,6,4,3,5,2,5,7,4,7,8,4,1,4];
+
+console.log(addnReduce(
+numbers
+.reduce(function unique(newArr, num) {
+  if (!newArr.includes(num)) return [...newArr, num];
+  return newArr;
+},[])
+.filter(function isEven(v) {return v%2===0})
+.map(v => constant(v))
+))

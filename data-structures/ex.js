@@ -9,19 +9,24 @@ var nums = {
 	third: [1,1,3,2]
 };
 
-var filteredNums = filterObj(function(list){
-	return isOdd(listSum(list));
-},nums);
+// var filteredNums = filterObj(function(list){
+// 	return isOdd(listSum(list));
+// },nums);
 
-var filteredNumsProducts = mapObj(function(list){
-	return listProduct(list);
-},filteredNums);
+// var filteredNumsProducts = mapObj(function(list){
+// 	return listProduct(list);
+// },filteredNums);
 
-reduceObj(function(acc,v){
-	return acc + v;
-},0,filteredNumsProducts);
-// 38886
+// reduceObj(function(acc,v){
+// 	return acc + v;
+// },0,filteredNumsProducts);
+// // 38886
 
+pipe(
+	curry(2)(filterObj)(compose(isOdd,listSum)),
+	curry(2)(mapObj)(listProduct),
+	curry(3)(reduceObj)(sum)(0)
+)(nums);
 
 // ************************************
 
@@ -35,11 +40,21 @@ function mapObj(mapperFn,o) {
 }
 
 function filterObj(predicateFn,o) {
-	// TODO
+	var newObj = {};
+	var keys = Object.keys(o);
+	for (let key of keys) {
+		if (predicateFn(o[key])) newObj[key] = o[key]
+	}
+	return newObj;
 }
 
 function reduceObj(reducerFn,initialValue,o) {
-	// TODO
+	 var result = initialValue;
+	 var keys = Object.key(o);
+	 for (let key of keys) {
+		result = reducerFn(initialValue, o[key])
+	 }
+	 return result;
 }
 
 
